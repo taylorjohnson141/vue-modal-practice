@@ -1,6 +1,18 @@
 <template>
   <h1>{{title}}</h1>
-  <Modal/>
+  <div v-if="showModal">
+  <Modal :title = "title" :text = "text" :theme = 'theme' :changeTheme = "changeTheme" @close = "ToggleModal">
+    <p>Hello</p>
+    <p>World</p>
+    <template v-slot:links>
+      <a href = '#'>Text</a>
+      <a href = '#'>Mas</a>
+      <a href ='#'>more</a>
+      
+    </template>
+  </Modal>
+  </div>
+  <button @click = "ToggleModal"> Show Modal</button>
 </template>
 
 <script>
@@ -11,14 +23,30 @@ export default {
   components:{Modal},
   data() {
     return {
-      title:"It's a title"
-    }
+      title:"It's a title",
+      title:"I am a title",
+      text:"I am text",
+      theme:'cold',
+      showModal:false
+    } 
   },
   methods:{
     handleClick(){
       console.log(this.$refs.name)
       this.$refs.name.classList.add('active')
       this.$refs.name.focus()
+    },
+    changeTheme(){
+      console.log('here')
+      if(this.theme === "cold"){
+        this.theme = "warm"
+      }
+      else{
+        this.theme = "cold"
+      }
+    },
+    ToggleModal() {
+      this.showModal = !this.showModal
     }
   }
 }
